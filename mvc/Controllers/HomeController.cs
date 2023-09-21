@@ -28,7 +28,7 @@ namespace mvc.Controllers
             var algo = _httpContextAccessor.HttpContext.Request;
             List<User> users = _dbContext.Users.FromSqlRaw("exec GetUsers").ToList();
             var usernameParam = new SqlParameter("@Username","Juan");
-            var user = _dbContext.Users.FromSqlRaw("exec GetUser 'Juan'").ToList().FirstOrDefault();
+            var user = _dbContext.Users.FromSqlRaw("exec GetUser @Username", usernameParam).ToList().FirstOrDefault();
             return View(users);
         }
         [Authorize]
